@@ -135,6 +135,7 @@ namespace MCFishingBot
 			ButtonHandler();
 			MacroTimer.Stop();
 			UpdateMacroStatus();
+			this.DoTimes = 0;
 			UpdateLog("매크로가 중지 되었습니다");
 		}
 

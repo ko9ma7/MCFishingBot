@@ -127,6 +127,7 @@ namespace MCFishingBot
 							ButtonHandler();
 							MacroTimer.Stop();
 							UpdateMacroStatus();
+							this.DoTimes = 0;
 							return;
 						}
 					}

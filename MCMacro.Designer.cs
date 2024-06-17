@@ -350,7 +350,7 @@
 			this.btnFishingTimesReset.Name = "btnFishingTimesReset";
 			this.btnFishingTimesReset.Size = new System.Drawing.Size(75, 23);
 			this.btnFishingTimesReset.TabIndex = 6;
-			this.btnFishingTimesReset.Text = "회수 리셋";
+			this.btnFishingTimesReset.Text = "횟수 리셋";
 			this.btnFishingTimesReset.UseVisualStyleBackColor = true;
 			this.btnFishingTimesReset.Click += new System.EventHandler(this.btnFishingTimesReset_Click);
 			// 
@@ -370,7 +370,7 @@
 			this.lbFishing.Name = "lbFishing";
 			this.lbFishing.Size = new System.Drawing.Size(77, 12);
 			this.lbFishing.TabIndex = 4;
-			this.lbFishing.Text = "낚시한 회수 :";
+			this.lbFishing.Text = "낚시한 횟수 :";
 			// 
 			// MacroTimer
 			// 
@@ -418,7 +418,9 @@
 			this.Controls.Add(this.ssProcessStatus);
 			this.Controls.Add(this.gbMacroSetting);
 			this.Controls.Add(this.gbProcess);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MaximizeBox = false;
 			this.Name = "MCMacro";
 			this.Text = "MCFishingBot";
 			this.Load += new System.EventHandler(this.MCMacro_Load);
