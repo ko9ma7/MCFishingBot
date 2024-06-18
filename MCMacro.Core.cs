@@ -23,7 +23,7 @@ namespace MCFishingBot
 				{
 					var processInfo = String.Format("{0} - {1}", process.MainWindowTitle, process.ProcessName);
 
-					if (processInfo.Contains("Minecraft") && !processInfo.Contains("Launcher"))
+					if (processInfo.Contains("Minecraft") && !processInfo.Contains("Launcher") && !processInfo.Contains("Chrome"))
 					{
 						var pId = process.Id;
 						cbProcessList.Items.Add(new { DisPlay = $"{processInfo} ({pId})", Value = pId });
@@ -61,33 +61,28 @@ namespace MCFishingBot
 			{
 				using (Bitmap screenBitmap = await PrintWindowAsync(ProcessID))
 				{
-					using (Bitmap findBitmap = await GetFindBitMat())
+					using (Bitmap findBitmap = await GetFindBitMatAsync())
 					{
-						await FindImageAsync(screenBitmap, findBitmap);
+						int imageWidth = screenBitmap.Width;
+						int imageHeight = screenBitmap.Height;
 
-						//int imageWidth = screenBitmap.Width;
-						//int imageHeight = screenBitmap.Height;
-						//// 왼쪽을 80% 자르는 비율
-						//double leftRatio = 0.2;
-						//// 위쪽을 70% 자르는 비율
-						//double topRatio = 0.3;
+						// 왼쪽을 50% 자르는 비율
+						double leftRatio = 0.5;
+						// 위쪽을 50% 자르는 비율
+						double topRatio = 0.5;
 
-						//// 왼쪽 부분의 너비와 시작점 계산
-						//int leftWidth = (int)(imageWidth * leftRatio);
-						//int xStart = imageWidth - leftWidth;
+						// 왼쪽 부분의 너비와 시작점 계산
+						int leftWidth = (int)(imageWidth * leftRatio);
+						int xStart = imageWidth - leftWidth;
 
-						//// 위쪽 부분의 높이와 시작점 계산
-						//int topHeight = (int)(imageHeight * topRatio);
-						//int yStart = imageHeight - topHeight;
+						// 위쪽 부분의 높이와 시작점 계산
+						int topHeight = (int)(imageHeight * topRatio);
+						int yStart = imageHeight - topHeight;
 
-						//// 자를 영역의 크기 계산
-						//int Width = leftWidth;
-						//int Height = topHeight;
-
-						//using (Bitmap sliceBitmap = await SliceImageAsync(xStart, yStart, Width, Height, screenBitmap))
-						//{
-						//	await FindImageAsync(screenBitmap, findBitmap);
-						//}
+						using (Bitmap sliceBitmap = await SliceImageAsync(xStart, yStart, leftWidth, topHeight, screenBitmap))
+						{
+							await FindImageAsync(screenBitmap, findBitmap);
+						}
 					}
 				}
 			}
@@ -140,9 +135,9 @@ namespace MCFishingBot
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				ShowErrorMsg(ex.Message);
+				ShowErrorMsg("마인크래프트 창을 찾을 수 없습니다.");
 				UpdateLog("이미지 저장에 실패했습니다");
 			}
 		}
@@ -173,7 +168,7 @@ namespace MCFishingBot
 		/// 패턴 비트맵 반환 함수
 		/// </summary>
 		/// <returns></returns>
-		private async Task<Bitmap> GetFindBitMat()
+		private async Task<Bitmap> GetFindBitMatAsync()
 		{
 			Bitmap findBitmap;
 

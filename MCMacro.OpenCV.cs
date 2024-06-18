@@ -27,8 +27,7 @@ namespace MCFishingBot
 			Graphics gfxBmp = Graphics.FromImage(bitmap);
 			IntPtr hdcBitmap = gfxBmp.GetHdc();
 
-			// win10에서 플래그 인수값 2권장
-			bool succeeded = PrintWindow(hwnd, hdcBitmap, 2);
+			bool succeeded = PrintWindow(hwnd, hdcBitmap, 3);
 
 			gfxBmp.ReleaseHdc(hdcBitmap);
 
@@ -58,15 +57,15 @@ namespace MCFishingBot
 		/// </summary>
 		/// <param name="xStart">x좌표 시작값</param>
 		/// <param name="yStart">y좌표 시작값</param>
-		/// <param name="Width">너비</param>
-		/// <param name="Height">높이</param>
+		/// <param name="width">너비</param>
+		/// <param name="height">높이</param>
 		/// <param name="screenBitmap">원본 비트맵</param>
 		/// <returns></returns>
-		private async Task<Bitmap> SliceImageAsync(int xStart, int yStart, int Width, int Height, Bitmap screenBitmap)
+		private async Task<Bitmap> SliceImageAsync(int xStart, int yStart, int width, int height, Bitmap screenBitmap)
 		{
 			using (Mat mat = BitmapConverter.ToMat(screenBitmap))
 			{
-				OpenCvSharp.Rect roi = new OpenCvSharp.Rect(xStart, yStart, Width, Height);
+				OpenCvSharp.Rect roi = new OpenCvSharp.Rect(xStart, yStart, width, height);
 				using (Mat slice = new Mat(mat, roi))
 				{
 					Bitmap bitmap = BitmapConverter.ToBitmap(slice);
@@ -78,8 +77,8 @@ namespace MCFishingBot
 		/// <summary>
 		/// 이미지 매칭 검증 함수
 		/// </summary>
-		/// <param name="screenBitmap"></param>
-		/// <param name="findBitmap"></param>
+		/// <param name="screenBitmap">원본 비트맵</param>
+		/// <param name="findBitmap">찾을 패턴 비트맵</param>
 		/// <returns></returns>
 		private async Task FindImageAsync(Bitmap screenBitmap, Bitmap findBitmap)
 		{
@@ -113,11 +112,11 @@ namespace MCFishingBot
 					await ControllTimerStopAsync(FishingCollectDelay);
 					SendRightClick(ProcessID);
 
-					// 낚시 회수 업데이트
+					// 낚시 횟수 업데이트
 					Fished++;
 					UpdateFishigTimes();
 
-					// 매크로 실행회수 처리
+					// 매크로 실행횟수 처리
 					if (MacroTimes != 0)
 					{
 						DoTimes++;

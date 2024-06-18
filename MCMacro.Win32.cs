@@ -15,6 +15,12 @@ namespace MCFishingBot
 		const uint WM_RBUTTONUP = 0x0205;
 		//const int VK_F5 = 0x74;
 
+		// 프로그램이 최소화 처리 되면 매크로 작동안됨 ShowWindow함수를 이용하면 강제로 활성화 할수 있지만 함수 실행이 완료되기전까지 Task.Delay를 줘야해서 반복문 작업이 느려짐
+		// https://www.codeproject.com/Articles/20651/Capturing-Minimized-Window-A-Kid-s-Trick
+
+		//[DllImport("user32.dll")]
+		//static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+
 		/// <summary>
 		/// 키 이벤트 제어
 		/// </summary>

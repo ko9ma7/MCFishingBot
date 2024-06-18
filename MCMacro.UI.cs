@@ -129,6 +129,9 @@ namespace MCFishingBot
 			}));
 		}
 
+		/// <summary>
+		/// 매크로 실행 상태 여부 라벨 세팅
+		/// </summary>
 		private void UpdateMacroStatus()
 		{
 			Invoke(new Action(() =>
@@ -146,6 +149,7 @@ namespace MCFishingBot
 			}));
 		}
 
+		// 설정 최소값 처리들
 		private void numMacroTimes_ValueChanged(object sender, EventArgs e)
 		{
 			if (numMacroTimes.Value < numMacroTimes.Minimum)

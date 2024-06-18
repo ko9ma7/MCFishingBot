@@ -10,7 +10,7 @@ namespace MCFishingBot
 		/// </summary>
 		private int ProcessID = 0;
 		/// <summary>
-		/// 낚시회수
+		/// 낚시 한 횟수
 		/// </summary>
 		private int Fished = 0;
 		/// <summary>
@@ -31,11 +31,11 @@ namespace MCFishingBot
 		/// </summary>
 		private int BotStartDelay = 0;
 		/// <summary>
-		/// 매크로 회수
+		/// 매크로 횟수
 		/// </summary>
 		private int MacroTimes = 0;
 		/// <summary>
-		/// 매크로 실행한 회수
+		/// 매크로 실행한 횟수
 		/// </summary>
 		private int DoTimes = 0;
 		/// <summary>
@@ -185,7 +185,7 @@ namespace MCFishingBot
 		}
 
 		/// <summary>
-		/// 낚시회수 초기화 처리
+		/// 낚시 한 횟수 초기화 처리
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -209,6 +209,11 @@ namespace MCFishingBot
 			numCurrectRate.Value = 9;
 		}
 
+		/// <summary>
+		/// 디폴트 이미지 패턴 사용 여부 체크
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void cbDefaultImg_CheckedChanged(object sender, EventArgs e)
 		{
 			if(cbDefaultImg.Checked)

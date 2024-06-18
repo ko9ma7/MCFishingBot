@@ -159,7 +159,7 @@
 			// lbCurrectRate
 			// 
 			this.lbCurrectRate.AutoSize = true;
-			this.lbCurrectRate.Location = new System.Drawing.Point(6, 157);
+			this.lbCurrectRate.Location = new System.Drawing.Point(6, 154);
 			this.lbCurrectRate.Name = "lbCurrectRate";
 			this.lbCurrectRate.Size = new System.Drawing.Size(158, 12);
 			this.lbCurrectRate.TabIndex = 15;
@@ -167,7 +167,7 @@
 			// 
 			// numCurrectRate
 			// 
-			this.numCurrectRate.Location = new System.Drawing.Point(237, 148);
+			this.numCurrectRate.Location = new System.Drawing.Point(237, 152);
 			this.numCurrectRate.Maximum = new decimal(new int[] {
             10,
             0,
@@ -242,7 +242,7 @@
 			// lbCollectDelay
 			// 
 			this.lbCollectDelay.AutoSize = true;
-			this.lbCollectDelay.Location = new System.Drawing.Point(6, 119);
+			this.lbCollectDelay.Location = new System.Drawing.Point(6, 121);
 			this.lbCollectDelay.Name = "lbCollectDelay";
 			this.lbCollectDelay.Size = new System.Drawing.Size(175, 12);
 			this.lbCollectDelay.TabIndex = 9;
@@ -251,7 +251,7 @@
 			// lbThrowDelay
 			// 
 			this.lbThrowDelay.AutoSize = true;
-			this.lbThrowDelay.Location = new System.Drawing.Point(4, 84);
+			this.lbThrowDelay.Location = new System.Drawing.Point(6, 86);
 			this.lbThrowDelay.Name = "lbThrowDelay";
 			this.lbThrowDelay.Size = new System.Drawing.Size(187, 12);
 			this.lbThrowDelay.TabIndex = 8;
@@ -278,7 +278,7 @@
 			// lbBotStartDelay
 			// 
 			this.lbBotStartDelay.AutoSize = true;
-			this.lbBotStartDelay.Location = new System.Drawing.Point(4, 52);
+			this.lbBotStartDelay.Location = new System.Drawing.Point(6, 52);
 			this.lbBotStartDelay.Name = "lbBotStartDelay";
 			this.lbBotStartDelay.Size = new System.Drawing.Size(175, 12);
 			this.lbBotStartDelay.TabIndex = 6;
@@ -291,7 +291,7 @@
 			this.lbMacroTimes.Name = "lbMacroTimes";
 			this.lbMacroTimes.Size = new System.Drawing.Size(167, 12);
 			this.lbMacroTimes.TabIndex = 5;
-			this.lbMacroTimes.Text = "매크로 실행할 회수 (0 = 무한)";
+			this.lbMacroTimes.Text = "매크로 실행할 횟수 (0 = 무한)";
 			// 
 			// numMacroTimes
 			// 
