@@ -81,7 +81,7 @@ namespace MCFishingBot
 
 						using (Bitmap sliceBitmap = await SliceImageAsync(xStart, yStart, leftWidth, topHeight, screenBitmap))
 						{
-							await FindImageAsync(screenBitmap, findBitmap);
+							await FindImageAsync(sliceBitmap, findBitmap);
 						}
 					}
 				}

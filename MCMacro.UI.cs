@@ -20,6 +20,7 @@ namespace MCFishingBot
 				btnImageDownload.Enabled = !Active;
 				btnSettingReset.Enabled = !Active;
 				btnFishingTimesReset.Enabled = !Active;
+				btnProcessReload.Enabled = !Active;
 
 				numBotStartDelay.Enabled = !Active;
 				numMacroTimes.Enabled = !Active;
