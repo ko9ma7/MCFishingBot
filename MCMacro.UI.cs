@@ -53,7 +53,7 @@ namespace MCFishingBot
 		/// <param name="log"></param>
 		private void UpdateLog(string log)
 		{
-			int max_log_length = 20; // 글자 최대 길이 한글 기준 20자
+			int max_log_length = 30; // 글자 최대 길이 한글 기준 30자
 			int max_byte_length = max_log_length * 3; // 한글 기준 3byte
 
 			int byteCount = 0;

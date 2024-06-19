@@ -30,12 +30,12 @@ namespace MCFishingBot
 						cbProcessList.DisplayMember = "DisPlay";
 						cbProcessList.ValueMember = "Value";
 					}
-
-					if (cbProcessList.Items.Count > 0)
-					{
-						cbProcessList.SelectedIndex = 0;
-					}
 				}
+			}
+
+			if (cbProcessList.Items.Count > 0)
+			{
+				cbProcessList.SelectedIndex = 0;
 			}
 		}
 
@@ -59,29 +59,43 @@ namespace MCFishingBot
 		{
 			try
 			{
-				using (Bitmap screenBitmap = await PrintWindowAsync(ProcessID))
+				while (Active)
 				{
-					using (Bitmap findBitmap = await GetFindBitMatAsync())
+					// 반복문 딜레이
+					await Task.Delay(500);
+
+					using (Bitmap screenBitmap = await PrintWindowAsync(ProcessID))
 					{
-						int imageWidth = screenBitmap.Width;
-						int imageHeight = screenBitmap.Height;
-
-						// 왼쪽을 50% 자르는 비율
-						double leftRatio = 0.5;
-						// 위쪽을 50% 자르는 비율
-						double topRatio = 0.5;
-
-						// 왼쪽 부분의 너비와 시작점 계산
-						int leftWidth = (int)(imageWidth * leftRatio);
-						int xStart = imageWidth - leftWidth;
-
-						// 위쪽 부분의 높이와 시작점 계산
-						int topHeight = (int)(imageHeight * topRatio);
-						int yStart = imageHeight - topHeight;
-
-						using (Bitmap sliceBitmap = await SliceImageAsync(xStart, yStart, leftWidth, topHeight, screenBitmap))
+						using (Bitmap findBitmap = await GetFindBitmapAsync())
 						{
-							await FindImageAsync(sliceBitmap, findBitmap);
+							int imageWidth = screenBitmap.Width;
+							int imageHeight = screenBitmap.Height;
+
+							// 왼쪽을 50% 자르는 비율
+							double leftRatio = 0.5;
+							// 위쪽을 50% 자르는 비율
+							double topRatio = 0.5;
+
+							// 왼쪽 부분의 너비와 시작점 계산
+							int leftWidth = (int)(imageWidth * leftRatio);
+							int xStart = imageWidth - leftWidth;
+
+							// 위쪽 부분의 높이와 시작점 계산
+							int topHeight = (int)(imageHeight * topRatio);
+							int yStart = imageHeight - topHeight;
+
+							using (Bitmap sliceBitmap = await SliceImageAsync(xStart, yStart, leftWidth, topHeight, screenBitmap))
+							{
+								// 에러 방지
+								if (sliceBitmap.Width <= findBitmap.Width || sliceBitmap.Height <= findBitmap.Height)
+								{
+									await FindImageAsync(screenBitmap, findBitmap);
+								}
+								else
+								{
+									await FindImageAsync(sliceBitmap, findBitmap);
+								}
+							}
 						}
 					}
 				}
@@ -90,12 +104,11 @@ namespace MCFishingBot
 			{
 				Active = false;
 				ButtonHandler();
-				MacroTimer.Stop();
 				UpdateMacroStatus();
 
 				this.DoTimes = 0;
 				ShowErrorMsg("마인크래프트 창을 찾을 수 없습니다.");
-				UpdateLog("매크로가 중지 되었습니다");
+				UpdateLog("매크로가 중지 되었습니다.");
 			}
 		}
 
@@ -109,7 +122,7 @@ namespace MCFishingBot
 			{
 				if(cbProcessList.Items.Count == 0 || ProcessID == 0) 
 				{
-					ShowErrorMsg("마인크래프트 창을 찾을 수 없습니다");
+					ShowErrorMsg("마인크래프트 창을 찾을 수 없습니다.");
 					return;
 				}
 				using (Bitmap screenBitmap = await PrintWindowAsync(ProcessID))
@@ -130,7 +143,7 @@ namespace MCFishingBot
 								File.Delete(saveFileDialog.FileName);
 							}
 							screenBitmap.Save(saveFileDialog.FileName, ImageFormat.Jpeg);
-							UpdateLog($"이미지가 {saveFileDialog.FileName}에 저장 되었습니다");
+							UpdateLog($"이미지가 {saveFileDialog.FileName}에 저장 되었습니다.");
 						}
 					}
 				}
@@ -138,37 +151,15 @@ namespace MCFishingBot
 			catch (Exception)
 			{
 				ShowErrorMsg("마인크래프트 창을 찾을 수 없습니다.");
-				UpdateLog("이미지 저장에 실패했습니다");
+				UpdateLog("이미지 저장에 실패했습니다.");
 			}
-		}
-
-		/// <summary>
-		/// 타이머 제어 정지 함수
-		/// </summary>
-		/// <param name="secounds"></param>
-		/// <returns></returns>
-		private async Task ControllTimerStopAsync(int secounds)
-		{
-			MacroTimer.Stop();
-			await Task.Delay(secounds);
-		}
-
-		/// <summary>
-		/// 타이머 제어 시작 함수
-		/// </summary>
-		/// <param name="secounds"></param>
-		/// <returns></returns>
-		private async Task ControllTimerStartAsync(int secounds)
-		{
-			await Task.Delay(secounds);
-			MacroTimer.Start();
 		}
 
 		/// <summary>
 		/// 패턴 비트맵 반환 함수
 		/// </summary>
 		/// <returns></returns>
-		private async Task<Bitmap> GetFindBitMatAsync()
+		private async Task<Bitmap> GetFindBitmapAsync()
 		{
 			Bitmap findBitmap;
 
@@ -182,6 +173,25 @@ namespace MCFishingBot
 			}
 
 			return findBitmap;
+		}
+
+		/// <summary>
+		/// 매크로 종료 처리
+		/// </summary>
+		private async void StopMacro()
+		{
+			Active = false;
+			Invoke(new Action(() =>
+			{
+				btnBotStop.Enabled = false;
+			}));
+			UpdateLog("모든 작업이 완료된 후 매크로가 종료됩니다...");
+			// 매크로 작업 쓰레드 완료 대기
+			await TCS.Task;
+			ButtonHandler();
+			UpdateMacroStatus();
+			this.DoTimes = 0;
+			UpdateLog("매크로가 종료 되었습니다.");
 		}
 	}
 }

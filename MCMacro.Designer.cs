@@ -28,7 +28,6 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MCMacro));
 			this.gbProcess = new System.Windows.Forms.GroupBox();
 			this.btnProcessReload = new System.Windows.Forms.Button();
@@ -56,7 +55,6 @@
 			this.btnFishingTimesReset = new System.Windows.Forms.Button();
 			this.lbFishingTimes = new System.Windows.Forms.Label();
 			this.lbFishing = new System.Windows.Forms.Label();
-			this.MacroTimer = new System.Windows.Forms.Timer(this.components);
 			this.gbLog = new System.Windows.Forms.GroupBox();
 			this.lbLog = new System.Windows.Forms.ListBox();
 			this.cbDefaultImg = new System.Windows.Forms.CheckBox();
@@ -141,14 +139,14 @@
 			this.gbMacroSetting.Controls.Add(this.numMacroTimes);
 			this.gbMacroSetting.Location = new System.Drawing.Point(12, 72);
 			this.gbMacroSetting.Name = "gbMacroSetting";
-			this.gbMacroSetting.Size = new System.Drawing.Size(474, 186);
+			this.gbMacroSetting.Size = new System.Drawing.Size(480, 186);
 			this.gbMacroSetting.TabIndex = 4;
 			this.gbMacroSetting.TabStop = false;
 			this.gbMacroSetting.Text = "매크로 설정";
 			// 
 			// btnSettingReset
 			// 
-			this.btnSettingReset.Location = new System.Drawing.Point(393, 130);
+			this.btnSettingReset.Location = new System.Drawing.Point(401, 130);
 			this.btnSettingReset.Name = "btnSettingReset";
 			this.btnSettingReset.Size = new System.Drawing.Size(73, 50);
 			this.btnSettingReset.TabIndex = 16;
@@ -190,7 +188,7 @@
 			// 
 			// btnImageDownload
 			// 
-			this.btnImageDownload.Location = new System.Drawing.Point(393, 18);
+			this.btnImageDownload.Location = new System.Drawing.Point(401, 18);
 			this.btnImageDownload.Name = "btnImageDownload";
 			this.btnImageDownload.Size = new System.Drawing.Size(73, 50);
 			this.btnImageDownload.TabIndex = 13;
@@ -200,7 +198,7 @@
 			// 
 			// btnImageUpload
 			// 
-			this.btnImageUpload.Location = new System.Drawing.Point(393, 74);
+			this.btnImageUpload.Location = new System.Drawing.Point(401, 74);
 			this.btnImageUpload.Name = "btnImageUpload";
 			this.btnImageUpload.Size = new System.Drawing.Size(73, 50);
 			this.btnImageUpload.TabIndex = 12;
@@ -313,7 +311,7 @@
             this.ssMacroStatus});
 			this.ssProcessStatus.Location = new System.Drawing.Point(0, 532);
 			this.ssProcessStatus.Name = "ssProcessStatus";
-			this.ssProcessStatus.Size = new System.Drawing.Size(504, 22);
+			this.ssProcessStatus.Size = new System.Drawing.Size(500, 22);
 			this.ssProcessStatus.TabIndex = 5;
 			this.ssProcessStatus.Text = "statusStrip1";
 			// 
@@ -372,17 +370,12 @@
 			this.lbFishing.TabIndex = 4;
 			this.lbFishing.Text = "낚시한 횟수 :";
 			// 
-			// MacroTimer
-			// 
-			this.MacroTimer.Interval = 500;
-			this.MacroTimer.Tick += new System.EventHandler(this.MacroTimer_Tick);
-			// 
 			// gbLog
 			// 
 			this.gbLog.Controls.Add(this.lbLog);
 			this.gbLog.Location = new System.Drawing.Point(12, 264);
 			this.gbLog.Name = "gbLog";
-			this.gbLog.Size = new System.Drawing.Size(474, 88);
+			this.gbLog.Size = new System.Drawing.Size(480, 88);
 			this.gbLog.TabIndex = 6;
 			this.gbLog.TabStop = false;
 			this.gbLog.Text = "로그";
@@ -393,7 +386,7 @@
 			this.lbLog.ItemHeight = 12;
 			this.lbLog.Location = new System.Drawing.Point(6, 18);
 			this.lbLog.Name = "lbLog";
-			this.lbLog.Size = new System.Drawing.Size(460, 64);
+			this.lbLog.Size = new System.Drawing.Size(468, 64);
 			this.lbLog.TabIndex = 0;
 			// 
 			// cbDefaultImg
@@ -411,7 +404,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(504, 554);
+			this.ClientSize = new System.Drawing.Size(500, 554);
 			this.Controls.Add(this.cbDefaultImg);
 			this.Controls.Add(this.gbLog);
 			this.Controls.Add(this.gbMacro);
@@ -465,7 +458,6 @@
 		private System.Windows.Forms.Label lbThrowDelay;
 		private System.Windows.Forms.Button btnImageUpload;
 		private System.Windows.Forms.Button btnImageDownload;
-		private System.Windows.Forms.Timer MacroTimer;
 		private System.Windows.Forms.GroupBox gbLog;
 		private System.Windows.Forms.ListBox lbLog;
 		private System.Windows.Forms.NumericUpDown numCurrectRate;

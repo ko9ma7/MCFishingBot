@@ -3,6 +3,7 @@ using OpenCvSharp.Extensions;
 using System;
 using System.Drawing;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MCFishingBot
 {
@@ -17,6 +18,28 @@ namespace MCFishingBot
 		{
 			// 프로세스 핸들 가져오기
 			IntPtr hwnd = GetWindowHandle(processId);
+
+			// 최소화 되어 있을 경우 강제 활성화
+			if (IsIconic(hwnd))
+			{
+				UpdateLog("창이 최소화 되어있습니다. 창을 활성화합니다.");
+				ShowWindow(hwnd, SW_RESTORE);
+
+				POINT cursorPoint;
+				bool result = GetCursorPos(out cursorPoint);
+
+				if (result)
+				{
+					SetWindowPos(hwnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+
+					// 게임 커서 고정 방지
+					IntPtr WFhandle = this.Handle;
+					ShowWindow(WFhandle, SW_MINIMIZE);
+					ShowWindow(WFhandle, SW_RESTORE);
+					// 커서 위치 복원
+					SetCursorPos(cursorPoint.X, cursorPoint.Y);
+				}
+			}
 
 			Graphics gfxWin = Graphics.FromHwnd(hwnd);
 
@@ -109,7 +132,7 @@ namespace MCFishingBot
 				if (maxval >= similarity)
 				{
 					// 낚시줄 회수 딜레이
-					await ControllTimerStopAsync(FishingCollectDelay);
+					await Task.Delay(FishingCollectDelay);
 					SendRightClick(ProcessID);
 
 					// 낚시 횟수 업데이트
@@ -124,7 +147,6 @@ namespace MCFishingBot
 						{
 							Active = false;
 							ButtonHandler();
-							MacroTimer.Stop();
 							UpdateMacroStatus();
 							this.DoTimes = 0;
 							return;
@@ -136,7 +158,13 @@ namespace MCFishingBot
 					SendRightClick(ProcessID);
 
 					// 매크로 재시작 딜레이
-					await ControllTimerStartAsync(BotStartDelay);
+					await Task.Delay(BotStartDelay);
+				}
+
+				// 매크로 중지되었을시 Task 결과값 반환
+				if(Active == false)
+				{
+					TCS.SetResult(true);
 				}
 			}
 		}

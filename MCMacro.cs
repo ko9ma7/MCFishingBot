@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MCFishingBot
@@ -51,6 +52,11 @@ namespace MCFishingBot
 		/// </summary>
 		private double CurrectRate = 0.0;
 
+		/// <summary>
+		/// 쓰레드 작업 완료 여부
+		/// </summary>
+		private TaskCompletionSource<bool> TCS;
+
 		public MCMacro()
 		{
 			InitializeComponent();
@@ -93,12 +99,12 @@ namespace MCFishingBot
 			{
 				if (cbProcessList.Items.Count == 0 || ProcessID == 0)
 				{
-					ShowErrorMsg("마인크래프트가 실행되어있지 않습니다");
+					ShowErrorMsg("마인크래프트가 실행되어있지 않습니다.");
 					return;
 				}
 				if (String.IsNullOrEmpty(FilePath) && UseDefaultImg == false)
 				{
-					ShowErrorMsg("매크로 패턴이 업로드 되지 않았습니다.\n이미지를 업로드 해주십시오");
+					ShowErrorMsg("매크로 패턴이 업로드 되지 않았습니다.\n이미지를 업로드 해주십시오.");
 					return;
 				}
 
@@ -109,6 +115,7 @@ namespace MCFishingBot
 				this.FishingThrowDelay = (int)numThrowDelay.Value;
 				this.FishingCollectDelay = (int)numCollectDelay.Value;
 				this.CurrectRate = (double)numCurrectRate.Value / 10;
+				TCS = new TaskCompletionSource<bool>();
 
 				// 버튼 비활성화
 				ButtonHandler();
@@ -116,11 +123,12 @@ namespace MCFishingBot
 				UpdateMacroStatus();
 				// 초기낚시대 던지기
 				SendRightClick(ProcessID);
-				MacroTimer.Start();
+				// 매크로 실행
+				_ = RunMacro();
 			}
 			catch (Exception)
 			{
-				UpdateLog("매크로 실행에 실패했습니다");
+				UpdateLog("매크로 실행에 실패했습니다.");
 			}
 		}
 
@@ -131,12 +139,7 @@ namespace MCFishingBot
 		/// <param name="e"></param>
 		private void btnBotStop_Click(object sender, EventArgs e)
 		{
-			Active = false;
-			ButtonHandler();
-			MacroTimer.Stop();
-			UpdateMacroStatus();
-			this.DoTimes = 0;
-			UpdateLog("매크로가 중지 되었습니다");
+			StopMacro();
 		}
 
 		/// <summary>
@@ -156,7 +159,7 @@ namespace MCFishingBot
 				if (openFileDialog.ShowDialog() == DialogResult.OK)
 				{
 					FilePath = openFileDialog.FileName;
-					UpdateLog($"{FilePath} 의 이미지가 패턴에 등록되었습니다");
+					UpdateLog($"{FilePath} 의 이미지가 패턴에 등록되었습니다.");
 				}
 			}
 		}
@@ -169,19 +172,6 @@ namespace MCFishingBot
 		private void btnImageDownload_Click(object sender, EventArgs e)
 		{
 			_ = CaptureImage();
-		}
-
-		/// <summary>
-		/// 타이머 처리
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void MacroTimer_Tick(object sender, EventArgs e)
-		{
-			if (Active)
-			{
-				_ = RunMacro();
-			}
 		}
 
 		/// <summary>
