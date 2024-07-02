@@ -100,12 +100,12 @@ namespace MCFishingBot
 					}
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 				Active = false;
 				ButtonHandler();
 				UpdateMacroStatus();
-
+				UpdateLog(ex.Message);
 				this.DoTimes = 0;
 				ShowErrorMsg("마인크래프트 창을 찾을 수 없습니다.");
 				UpdateLog("매크로가 중지 되었습니다.");

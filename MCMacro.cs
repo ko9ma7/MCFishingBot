@@ -1,4 +1,7 @@
-﻿using System;
+﻿using OpenCvSharp;
+using System;
+using System.Drawing;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -140,6 +143,8 @@ namespace MCFishingBot
 		private void btnBotStop_Click(object sender, EventArgs e)
 		{
 			StopMacro();
+			// 가비지 컬렉터 수행
+			GC.Collect(0);
 		}
 
 		/// <summary>
@@ -159,7 +164,7 @@ namespace MCFishingBot
 				if (openFileDialog.ShowDialog() == DialogResult.OK)
 				{
 					FilePath = openFileDialog.FileName;
-					UpdateLog($"{FilePath} 의 이미지가 패턴에 등록되었습니다.");
+					UpdateLog($"{Path.GetFileName(FilePath)} 의 이미지가 패턴에 등록되었습니다.");
 				}
 			}
 		}
@@ -208,7 +213,7 @@ namespace MCFishingBot
 		{
 			if(cbDefaultImg.Checked)
 			{
-				if (MessageBox.Show("프로그램 내부에 저장되어있는 기본 이미지 패턴을 사용하시겠습니까?", "MCFishingBot", MessageBoxButtons.YesNo) == DialogResult.No)
+				if (MessageBox.Show("프로그램 내부에 저장되어있는 기본 이미지 패턴을 사용합니다.\n이미지 패턴을 찾기위한 적정 게임 해상도를 찾는데 조금 시간이 걸릴 수 있습니다.\n또한 컴퓨터 성능에 따라 프로그램의 작동이 중지 될 수 있습니다, 정말로 사용하시겠습니까?", "MCFishingBot", MessageBoxButtons.YesNo) == DialogResult.No)
 				{
 					cbDefaultImg.Checked = false;
 				}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace MCFishingBot
@@ -36,22 +37,31 @@ namespace MCFishingBot
 		/// 로그 처리
 		/// </summary>
 		/// <param name="log"></param>
-		private void ShowLog(string log)
+		private async Task ShowLog(string log)
 		{
-			Invoke(new Action(() =>
+			await Task.Run(() =>
 			{
-				lbLog.Items.Add($"{DateTime.Now.ToString("HH:mm:ss")} : {log}");
+				Invoke(new Action(() =>
+				{
+					// 로그 수 제한
+					if (lbLog.Items.Count > 10000)
+					{
+						lbLog.Items.RemoveAt(0);
+					}
 
-				// 항상 최신 로그가 선택되게끔 함
-				lbLog.SelectedIndex = lbLog.Items.Count != -1 ? lbLog.Items.Count - 1 : -1;
-			}));
+					lbLog.Items.Add($"{DateTime.Now.ToString("HH:mm:ss")} : {log}");
+
+					// 항상 최신 로그가 선택되게끔 함
+					lbLog.SelectedIndex = lbLog.Items.Count != -1 ? lbLog.Items.Count - 1 : -1;
+				}));
+			});
 		}
 
 		/// <summary>
 		/// 로그 글자 수 계산
 		/// </summary>
 		/// <param name="log"></param>
-		private void UpdateLog(string log)
+		private async void UpdateLog(string log)
 		{
 			int max_log_length = 30; // 글자 최대 길이 한글 기준 30자
 			int max_byte_length = max_log_length * 3; // 한글 기준 3byte
@@ -66,7 +76,7 @@ namespace MCFishingBot
 
 				if (byteCount > max_byte_length)
 				{
-					ShowLog(log.Substring(startIndex, i - startIndex));
+					await ShowLog(log.Substring(startIndex, i - startIndex));
 					byteCount = 0; // 바이트 계산 초기화
 					startIndex = i; // 인덱스 재시작값 지정
 				}
@@ -75,7 +85,7 @@ namespace MCFishingBot
 			// 나머지 전체 문자열 출력
 			if (startIndex < log.Length)
 			{
-				ShowLog(log.Substring(startIndex));
+				await ShowLog(log.Substring(startIndex));
 			}
 		}
 
