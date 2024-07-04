@@ -1,11 +1,15 @@
 ﻿using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using System.Security.Cryptography;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace MCFishingBot
 {
@@ -31,6 +35,10 @@ namespace MCFishingBot
 		/// 디폴트 이미지 최적 스케일 저장 변수
 		/// </summary>
 		private double FoundScale = 0.0;
+		/// <summary>
+		/// 템플매칭 스케일 정보 저장 변수(첫번째 인자값 이미지스케일 퍼센트 두번째 인자값 OpenCV 매칭 결과값)
+		/// </summary>
+		private List<Tuple<double, double>> SaveScale;
 
 		/// <summary>
 		/// 윈도우 창에서 비트맵 가져오는 함수
@@ -70,7 +78,7 @@ namespace MCFishingBot
 
 			Bitmap bitmap = new Bitmap(rc.Width, rc.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-			Graphics gfxBmp = Graphics.FromImage(bitmap);
+			using Graphics gfxBmp = Graphics.FromImage(bitmap);
 			IntPtr hdcBitmap = gfxBmp.GetHdc();
 
 			bool succeeded = PrintWindow(hwnd, hdcBitmap, 3);
@@ -84,18 +92,14 @@ namespace MCFishingBot
 
 			IntPtr hRgn = CreateRectRgn(0, 0, 0, 0);
 			GetWindowRgn(hwnd, hRgn);
-			Region region = Region.FromHrgn(hRgn);
+			using Region region = Region.FromHrgn(hRgn);
 			if (!region.IsEmpty(gfxBmp))
 			{
 				gfxBmp.ExcludeClip(region);
 				gfxBmp.Clear(Color.Transparent);
 			}
 
-			// 객체정리
-			gfxBmp.Dispose();
-			region.Dispose();
-
-			if(UseDefaultImg == true && bitmap.Width > DefaultImgWidth && bitmap.Height > DefaultImgHeight)
+			if (UseDefaultImg == true && bitmap.Width > DefaultImgWidth && bitmap.Height > DefaultImgHeight)
 			{
 				return await ResizeBitmapAsync(bitmap);
 			}
@@ -116,15 +120,16 @@ namespace MCFishingBot
 		/// <returns></returns>
 		private async Task<Bitmap> SliceImageAsync(int xStart, int yStart, int width, int height, Bitmap screenBitmap)
 		{
-			using (Mat mat = BitmapConverter.ToMat(screenBitmap))
-			{
-				OpenCvSharp.Rect roi = new OpenCvSharp.Rect(xStart, yStart, width, height);
-				using (Mat slice = new Mat(mat, roi))
-				{
-					Bitmap bitmap = BitmapConverter.ToBitmap(slice);
-					return bitmap;
-				}
-			}
+			using Mat mat = BitmapConverter.ToMat(screenBitmap);
+
+			OpenCvSharp.Rect roi = new OpenCvSharp.Rect(xStart, yStart, width, height);
+			using Mat slice = new Mat(mat, roi);
+
+			Bitmap bitmap = BitmapConverter.ToBitmap(slice);
+			screenBitmap.Dispose();
+			return bitmap;
+
+
 		}
 
 		/// <summary>
@@ -132,44 +137,65 @@ namespace MCFishingBot
 		/// </summary>
 		/// <param name="screenBitmap"></param>
 		/// <returns></returns>
-		private async Task<Bitmap>ResizeBitmapAsync(Bitmap screenBitmap)
+		private async Task<Bitmap> ResizeBitmapAsync(Bitmap screenBitmap)
 		{
-			using (Mat screenMat = BitmapConverter.ToMat(screenBitmap))
+			if (FoundDefaultScale == false)
+			{
+				UpdateLog("최적의 해상도를 찾고 있습니다. 잠시 기다려 주십시오...");
 
-				if(FoundDefaultScale == false)
+				// 객체 생성
+				SaveScale = new List<Tuple<double, double>>();
+
+				while (true)
 				{
-					UpdateLog("최적의 해상도를 찾고 있습니다. 잠시 기다려 주십시오...");
+					// 해상도 검증 반복문 딜레이
+					await Task.Delay(500);
 
-					while (true)
+					using Mat mat = new Mat();
+
+					// 이미지 리사이징
+					using Bitmap resultBitmap = await SetImageResizeSizeAsync(screenBitmap, DefaultScale);
+
+					// 검증 결과값 반환
+					double result = await FindDefaultImageScaleAsync(resultBitmap);
+
+					// 결과값 변수에 저장
+					SaveScale.Add(new Tuple<double, double>(DefaultScale, result));
+
+					// 에러 방지
+					if (resultBitmap.Width < DefaultImgWidth && resultBitmap.Height < DefaultImgHeight)
 					{
-						using (Mat mat = new Mat())
+						// 배열값중 가장 높은 정확도를 찾음
+						double maxVal = SaveScale.Max(t => t.Item2);
+
+						foreach (var value in SaveScale)
 						{
-							Bitmap resultBitmap = await SetImageResizeSizeAsync(screenMat);
-
-							// 에러 방지
-							if (resultBitmap.Width < DefaultImgWidth && resultBitmap.Height < DefaultImgHeight)
+							if(value.Item2 == maxVal)
 							{
-								return resultBitmap;
-							}
-
-							bool result = await FindDefaultImageScaleAsync(resultBitmap);
-
-							if (result)
-							{
-								return resultBitmap;
-							}
-							else
-							{
-								// 적정 해상도 찾을때까지 10%씩 이미지 줄여가며 리스케일링
-								DefaultScale = DefaultScale - 0.1;
+								UpdateLog("최적의 해상도를 찾았습니다!");
+								FoundScale = (double)value.Item1;
+								FoundDefaultScale = true;
+								// 객체 초기화
+								SaveScale = null;
+								break;
 							}
 						}
+
+						return await SetImageResizeSizeAsync(screenBitmap, FoundScale);
 					}
+					else
+					{
+						// 적정 해상도 찾을때까지 10%씩 이미지 줄여가며 리스케일링
+						DefaultScale = DefaultScale - 0.1;
+					}
+
 				}
-				else
-				{
-					return await SetImageResizeSizeAsync(screenMat);
-				}
+			}
+			else
+			{
+				return await SetImageResizeSizeAsync(screenBitmap, FoundScale);
+			}
+
 		}
 
 
@@ -178,28 +204,21 @@ namespace MCFishingBot
 		/// </summary>
 		/// <param name="screenMat"></param>
 		/// <returns></returns>
-		private async Task<Bitmap> SetImageResizeSizeAsync(Mat screenMat)
+		private async Task<Bitmap> SetImageResizeSizeAsync(Bitmap screenBitmap, double percent)
 		{
-			using (Mat mat = new Mat())
-			{
-				int newWidth;
-				int newHeight;
+			using Mat screenMat = BitmapConverter.ToMat(screenBitmap);
+			using Mat mat = new Mat();
 
-				if (FoundDefaultScale)
-				{
-					newWidth = (int)(screenMat.Width * FoundScale);
-					newHeight = (int)(screenMat.Height * FoundScale);
-				}
-				else
-				{
-					newWidth = (int)(screenMat.Width * DefaultScale);
-					newHeight = (int)(screenMat.Height * DefaultScale);
-				}
+			int newWidth;
+			int newHeight;
 
-				Cv2.Resize(screenMat, mat, new OpenCvSharp.Size(newWidth, newHeight));
+			newWidth = (int)(screenMat.Width * percent);
+			newHeight = (int)(screenMat.Height * percent);
 
-				return BitmapConverter.ToBitmap(mat);
-			}
+			Cv2.Resize(screenMat, mat, new OpenCvSharp.Size(newWidth, newHeight));
+			screenMat.Dispose();
+			return BitmapConverter.ToBitmap(mat);
+
 		}
 
 		/// <summary>
@@ -210,10 +229,12 @@ namespace MCFishingBot
 		/// <returns></returns>
 		private async Task FindImageAsync(Bitmap screenBitmap, Bitmap findBitmap)
 		{
-			using (Mat screenMat = BitmapConverter.ToMat(screenBitmap))
-			using (Mat findMat = BitmapConverter.ToMat(findBitmap))
-			using (Mat result = new Mat())
+			try
 			{
+				using Mat screenMat = BitmapConverter.ToMat(screenBitmap);
+				using Mat findMat = BitmapConverter.ToMat(findBitmap);
+				using Mat result = new Mat();
+
 				// 인식률 위해 흑백 지정
 				Cv2.CvtColor(screenMat, screenMat, ColorConversionCodes.BGR2GRAY);
 				Cv2.CvtColor(findMat, findMat, ColorConversionCodes.BGR2GRAY);
@@ -267,10 +288,22 @@ namespace MCFishingBot
 				}
 
 				// 매크로 중지되었을시 Task 결과값 반환
-				if(Active == false)
+				if (Active == false)
 				{
 					TCS.SetResult(true);
 				}
+
+			}
+			catch
+			{
+				throw;
+			}
+			finally
+			{
+				screenBitmap.Dispose();
+				findBitmap.Dispose();
+				// Mat bitmap 객체들 소멸
+				GC.Collect(0);
 			}
 		}
 
@@ -279,13 +312,15 @@ namespace MCFishingBot
 		/// </summary>
 		/// <param name="screenBitmap"></param>
 		/// <returns></returns>
-		private async Task<bool> FindDefaultImageScaleAsync(Bitmap screenBitmap)
+		private async Task<double> FindDefaultImageScaleAsync(Bitmap screenBitmap)
 		{
-			using (Bitmap bitmap = new Bitmap(Properties.Resources.capture))
-			using (Mat screenMat = BitmapConverter.ToMat(screenBitmap))
-			using (Mat findMat = BitmapConverter.ToMat(bitmap))
-			using (Mat result = new Mat())
+			try
 			{
+				using Bitmap bitmap = new Bitmap(Properties.Resources.capture);
+				using Mat screenMat = BitmapConverter.ToMat(screenBitmap);
+				using Mat findMat = BitmapConverter.ToMat(bitmap);
+				using Mat result = new Mat();
+
 				// 인식률 위해 흑백 지정
 				Cv2.CvtColor(screenMat, screenMat, ColorConversionCodes.BGR2GRAY);
 				Cv2.CvtColor(findMat, findMat, ColorConversionCodes.BGR2GRAY);
@@ -300,21 +335,11 @@ namespace MCFishingBot
 				double minval, maxval;
 				Cv2.MinMaxLoc(result, out minval, out maxval, out minloc, out maxloc);
 
-				// 이미지의 유사 정도(마인크래프트 자막알림 적정 테스트값 0.28)
-				var similarity = 0.28;
-
-				// 이미지 찾았을시 전역변수에 스케일 값 저장
-				if (maxval >= similarity)
-				{
-					UpdateLog("최적의 해상도를 찾았습니다!");
-					FoundScale = DefaultScale;
-					FoundDefaultScale = true;
-					return true;
-				}
-				else
-				{
-					return false;
-				}
+				return maxval;
+			}
+			catch
+			{
+				throw;
 			}
 		}
 	}

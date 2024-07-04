@@ -64,40 +64,40 @@ namespace MCFishingBot
 					// 반복문 딜레이
 					await Task.Delay(500);
 
-					using (Bitmap screenBitmap = await PrintWindowAsync(ProcessID))
+					using Bitmap screenBitmap = await PrintWindowAsync(ProcessID);
+
+					using Bitmap findBitmap = await GetFindBitmapAsync();
+
+					int imageWidth = screenBitmap.Width;
+					int imageHeight = screenBitmap.Height;
+
+					// 왼쪽을 50% 자르는 비율
+					double leftRatio = 0.5;
+					// 위쪽을 50% 자르는 비율
+					double topRatio = 0.5;
+
+					// 왼쪽 부분의 너비와 시작점 계산
+					int leftWidth = (int)(imageWidth * leftRatio);
+					int xStart = imageWidth - leftWidth;
+
+					// 위쪽 부분의 높이와 시작점 계산
+					int topHeight = (int)(imageHeight * topRatio);
+					int yStart = imageHeight - topHeight;
+
+					using Bitmap sliceBitmap = await SliceImageAsync(xStart, yStart, leftWidth, topHeight, screenBitmap);
+
+					// 에러 방지
+					if (sliceBitmap.Width <= findBitmap.Width || sliceBitmap.Height <= findBitmap.Height)
 					{
-						using (Bitmap findBitmap = await GetFindBitmapAsync())
-						{
-							int imageWidth = screenBitmap.Width;
-							int imageHeight = screenBitmap.Height;
-
-							// 왼쪽을 50% 자르는 비율
-							double leftRatio = 0.5;
-							// 위쪽을 50% 자르는 비율
-							double topRatio = 0.5;
-
-							// 왼쪽 부분의 너비와 시작점 계산
-							int leftWidth = (int)(imageWidth * leftRatio);
-							int xStart = imageWidth - leftWidth;
-
-							// 위쪽 부분의 높이와 시작점 계산
-							int topHeight = (int)(imageHeight * topRatio);
-							int yStart = imageHeight - topHeight;
-
-							using (Bitmap sliceBitmap = await SliceImageAsync(xStart, yStart, leftWidth, topHeight, screenBitmap))
-							{
-								// 에러 방지
-								if (sliceBitmap.Width <= findBitmap.Width || sliceBitmap.Height <= findBitmap.Height)
-								{
-									await FindImageAsync(screenBitmap, findBitmap);
-								}
-								else
-								{
-									await FindImageAsync(sliceBitmap, findBitmap);
-								}
-							}
-						}
+						await FindImageAsync(screenBitmap, findBitmap);
 					}
+					else
+					{
+						await FindImageAsync(sliceBitmap, findBitmap);
+					}
+
+
+
 				}
 			}
 			catch (Exception ex)
@@ -105,8 +105,9 @@ namespace MCFishingBot
 				Active = false;
 				ButtonHandler();
 				UpdateMacroStatus();
-				UpdateLog(ex.Message);
+				this.DefaultScale = 0.9;
 				this.DoTimes = 0;
+
 				ShowErrorMsg("마인크래프트 창을 찾을 수 없습니다.");
 				UpdateLog("매크로가 중지 되었습니다.");
 			}
@@ -120,33 +121,34 @@ namespace MCFishingBot
 		{
 			try
 			{
-				if(cbProcessList.Items.Count == 0 || ProcessID == 0) 
+				if (cbProcessList.Items.Count == 0 || ProcessID == 0)
 				{
 					ShowErrorMsg("마인크래프트 창을 찾을 수 없습니다.");
 					return;
 				}
-				using (Bitmap screenBitmap = await PrintWindowAsync(ProcessID))
-				{
-					using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-					{
-						// 다이얼로그 로드시 최초로 보여주는 저장위치(바탕화면)
-						saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-						// 초기 저장이름
-						saveFileDialog.FileName = "capture.jpg";
-						// 파일 필터
-						saveFileDialog.Filter = "JPEG 파일 (*.jpeg;*.jpg)|*.jpeg;*.jpg";
 
-						if (saveFileDialog.ShowDialog() == DialogResult.OK)
+				using Bitmap screenBitmap = await PrintWindowAsync(ProcessID);
+
+				using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+				{
+					// 다이얼로그 로드시 최초로 보여주는 저장위치(바탕화면)
+					saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+					// 초기 저장이름
+					saveFileDialog.FileName = "capture.jpg";
+					// 파일 필터
+					saveFileDialog.Filter = "JPEG 파일 (*.jpeg;*.jpg)|*.jpeg;*.jpg";
+
+					if (saveFileDialog.ShowDialog() == DialogResult.OK)
+					{
+						if (File.Exists(saveFileDialog.FileName))
 						{
-							if (File.Exists(saveFileDialog.FileName))
-							{
-								File.Delete(saveFileDialog.FileName);
-							}
-							screenBitmap.Save(saveFileDialog.FileName, ImageFormat.Jpeg);
-							UpdateLog($"이미지가 {saveFileDialog.FileName}에 저장 되었습니다.");
+							File.Delete(saveFileDialog.FileName);
 						}
+						screenBitmap.Save(saveFileDialog.FileName, ImageFormat.Jpeg);
+						UpdateLog($"이미지가 {saveFileDialog.FileName}에 저장 되었습니다.");
 					}
 				}
+
 			}
 			catch (Exception)
 			{
@@ -185,12 +187,19 @@ namespace MCFishingBot
 			{
 				btnBotStop.Enabled = false;
 			}));
+
 			UpdateLog("모든 작업이 완료된 후 매크로가 종료됩니다...");
+
 			// 매크로 작업 쓰레드 완료 대기
 			await TCS.Task;
+
 			ButtonHandler();
 			UpdateMacroStatus();
 			this.DoTimes = 0;
+			this.DefaultScale = 0.9;
+			this.FoundDefaultScale = false;
+			this.FoundScale = 0.0;
+
 			UpdateLog("매크로가 종료 되었습니다.");
 		}
 	}
