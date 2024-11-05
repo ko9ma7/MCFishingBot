@@ -3,13 +3,8 @@ using OpenCvSharp.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Documents;
 
 namespace MCFishingBot
 {
@@ -209,13 +204,9 @@ namespace MCFishingBot
 			using Mat screenMat = BitmapConverter.ToMat(screenBitmap);
 			using Mat mat = new Mat();
 
-			int newWidth;
-			int newHeight;
+			MyVector myVector = new MyVector(screenMat.Width, screenMat.Height) * percent;
 
-			newWidth = (int)(screenMat.Width * percent);
-			newHeight = (int)(screenMat.Height * percent);
-
-			Cv2.Resize(screenMat, mat, new OpenCvSharp.Size(newWidth, newHeight));
+			Cv2.Resize(screenMat, mat, new OpenCvSharp.Size(myVector.X, myVector.Y));
 			screenMat.Dispose();
 			return BitmapConverter.ToBitmap(mat);
 

@@ -59,46 +59,37 @@ namespace MCFishingBot
 		{
 			try
 			{
-				while (Active)
+				await Task.Run(async () =>
 				{
-					// 반복문 딜레이
-					await Task.Delay(500);
-
-					using Bitmap screenBitmap = await PrintWindowAsync(ProcessID);
-
-					using Bitmap findBitmap = await GetFindBitmapAsync();
-
-					int imageWidth = screenBitmap.Width;
-					int imageHeight = screenBitmap.Height;
-
-					// 왼쪽을 50% 자르는 비율
-					double leftRatio = 0.5;
-					// 위쪽을 50% 자르는 비율
-					double topRatio = 0.5;
-
-					// 왼쪽 부분의 너비와 시작점 계산
-					int leftWidth = (int)(imageWidth * leftRatio);
-					int xStart = imageWidth - leftWidth;
-
-					// 위쪽 부분의 높이와 시작점 계산
-					int topHeight = (int)(imageHeight * topRatio);
-					int yStart = imageHeight - topHeight;
-
-					using Bitmap sliceBitmap = await SliceImageAsync(xStart, yStart, leftWidth, topHeight, screenBitmap);
-
-					// 에러 방지
-					if (sliceBitmap.Width <= findBitmap.Width || sliceBitmap.Height <= findBitmap.Height)
+					while (Active)
 					{
-						await FindImageAsync(screenBitmap, findBitmap);
+						// 반복문 딜레이
+						await Task.Delay(500);
+
+						using Bitmap screenBitmap = await PrintWindowAsync(ProcessID);
+
+						using Bitmap findBitmap = await GetFindBitmapAsync();
+
+						MyVector oldVector = new MyVector(screenBitmap.Width, screenBitmap.Height);
+
+						// 이미지 크기 50%
+						MyVector endVector = oldVector * 0.5;
+
+						MyVector startVector = oldVector - endVector;
+
+						using Bitmap sliceBitmap = await SliceImageAsync(startVector.X, startVector.Y, endVector.X, endVector.Y, screenBitmap);
+
+						// 에러 방지
+						if (sliceBitmap.Width <= findBitmap.Width || sliceBitmap.Height <= findBitmap.Height)
+						{
+							await FindImageAsync(screenBitmap, findBitmap);
+						}
+						else
+						{
+							await FindImageAsync(sliceBitmap, findBitmap);
+						}
 					}
-					else
-					{
-						await FindImageAsync(sliceBitmap, findBitmap);
-					}
-
-
-
-				}
+				});
 			}
 			catch (Exception ex)
 			{

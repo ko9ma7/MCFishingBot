@@ -29,410 +29,395 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MCMacro));
-			this.gbProcess = new System.Windows.Forms.GroupBox();
-			this.btnProcessReload = new System.Windows.Forms.Button();
-			this.cbProcessList = new System.Windows.Forms.ComboBox();
-			this.btnBotStart = new System.Windows.Forms.Button();
-			this.btnBotStop = new System.Windows.Forms.Button();
-			this.gbMacroSetting = new System.Windows.Forms.GroupBox();
-			this.btnSettingReset = new System.Windows.Forms.Button();
-			this.lbCurrectRate = new System.Windows.Forms.Label();
-			this.numCurrectRate = new System.Windows.Forms.NumericUpDown();
-			this.btnImageDownload = new System.Windows.Forms.Button();
-			this.btnImageUpload = new System.Windows.Forms.Button();
-			this.numCollectDelay = new System.Windows.Forms.NumericUpDown();
-			this.numThrowDelay = new System.Windows.Forms.NumericUpDown();
-			this.lbCollectDelay = new System.Windows.Forms.Label();
-			this.lbThrowDelay = new System.Windows.Forms.Label();
-			this.numBotStartDelay = new System.Windows.Forms.NumericUpDown();
-			this.lbBotStartDelay = new System.Windows.Forms.Label();
-			this.lbMacroTimes = new System.Windows.Forms.Label();
-			this.numMacroTimes = new System.Windows.Forms.NumericUpDown();
-			this.ssProcessStatus = new System.Windows.Forms.StatusStrip();
-			this.ssProcessStatuslb1 = new System.Windows.Forms.ToolStripStatusLabel();
-			this.ssMacroStatus = new System.Windows.Forms.ToolStripStatusLabel();
-			this.gbMacro = new System.Windows.Forms.GroupBox();
-			this.btnFishingTimesReset = new System.Windows.Forms.Button();
-			this.lbFishingTimes = new System.Windows.Forms.Label();
-			this.lbFishing = new System.Windows.Forms.Label();
-			this.gbLog = new System.Windows.Forms.GroupBox();
-			this.lbLog = new System.Windows.Forms.ListBox();
-			this.cbDefaultImg = new System.Windows.Forms.CheckBox();
-			this.gbProcess.SuspendLayout();
-			this.gbMacroSetting.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numCurrectRate)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numCollectDelay)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numThrowDelay)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numBotStartDelay)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numMacroTimes)).BeginInit();
-			this.ssProcessStatus.SuspendLayout();
-			this.gbMacro.SuspendLayout();
-			this.gbLog.SuspendLayout();
-			this.SuspendLayout();
+			gbProcess = new System.Windows.Forms.GroupBox();
+			btnProcessReload = new System.Windows.Forms.Button();
+			cbProcessList = new System.Windows.Forms.ComboBox();
+			btnBotStart = new System.Windows.Forms.Button();
+			btnBotStop = new System.Windows.Forms.Button();
+			gbMacroSetting = new System.Windows.Forms.GroupBox();
+			btnSettingReset = new System.Windows.Forms.Button();
+			lbCurrectRate = new System.Windows.Forms.Label();
+			numCurrectRate = new System.Windows.Forms.NumericUpDown();
+			btnImageDownload = new System.Windows.Forms.Button();
+			btnImageUpload = new System.Windows.Forms.Button();
+			numCollectDelay = new System.Windows.Forms.NumericUpDown();
+			numThrowDelay = new System.Windows.Forms.NumericUpDown();
+			lbCollectDelay = new System.Windows.Forms.Label();
+			lbThrowDelay = new System.Windows.Forms.Label();
+			numBotStartDelay = new System.Windows.Forms.NumericUpDown();
+			lbBotStartDelay = new System.Windows.Forms.Label();
+			lbMacroTimes = new System.Windows.Forms.Label();
+			numMacroTimes = new System.Windows.Forms.NumericUpDown();
+			ssProcessStatus = new System.Windows.Forms.StatusStrip();
+			ssProcessStatuslb1 = new System.Windows.Forms.ToolStripStatusLabel();
+			ssMacroStatus = new System.Windows.Forms.ToolStripStatusLabel();
+			gbMacro = new System.Windows.Forms.GroupBox();
+			btnFishingTimesReset = new System.Windows.Forms.Button();
+			lbFishingTimes = new System.Windows.Forms.Label();
+			lbFishing = new System.Windows.Forms.Label();
+			gbLog = new System.Windows.Forms.GroupBox();
+			lbLog = new System.Windows.Forms.ListBox();
+			cbDefaultImg = new System.Windows.Forms.CheckBox();
+			gbProcess.SuspendLayout();
+			gbMacroSetting.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)numCurrectRate).BeginInit();
+			((System.ComponentModel.ISupportInitialize)numCollectDelay).BeginInit();
+			((System.ComponentModel.ISupportInitialize)numThrowDelay).BeginInit();
+			((System.ComponentModel.ISupportInitialize)numBotStartDelay).BeginInit();
+			((System.ComponentModel.ISupportInitialize)numMacroTimes).BeginInit();
+			ssProcessStatus.SuspendLayout();
+			gbMacro.SuspendLayout();
+			gbLog.SuspendLayout();
+			SuspendLayout();
 			// 
 			// gbProcess
 			// 
-			this.gbProcess.Controls.Add(this.btnProcessReload);
-			this.gbProcess.Controls.Add(this.cbProcessList);
-			this.gbProcess.Location = new System.Drawing.Point(12, 12);
-			this.gbProcess.Name = "gbProcess";
-			this.gbProcess.Size = new System.Drawing.Size(480, 54);
-			this.gbProcess.TabIndex = 1;
-			this.gbProcess.TabStop = false;
-			this.gbProcess.Text = "프로세스 제어";
+			gbProcess.Controls.Add(btnProcessReload);
+			gbProcess.Controls.Add(cbProcessList);
+			gbProcess.Location = new System.Drawing.Point(12, 15);
+			gbProcess.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			gbProcess.Name = "gbProcess";
+			gbProcess.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			gbProcess.Size = new System.Drawing.Size(480, 68);
+			gbProcess.TabIndex = 1;
+			gbProcess.TabStop = false;
+			gbProcess.Text = "프로세스 제어";
 			// 
 			// btnProcessReload
 			// 
-			this.btnProcessReload.Location = new System.Drawing.Point(395, 20);
-			this.btnProcessReload.Name = "btnProcessReload";
-			this.btnProcessReload.Size = new System.Drawing.Size(79, 20);
-			this.btnProcessReload.TabIndex = 1;
-			this.btnProcessReload.Text = "새로고침";
-			this.btnProcessReload.UseVisualStyleBackColor = true;
-			this.btnProcessReload.Click += new System.EventHandler(this.btnProcessReload_Click);
+			btnProcessReload.Location = new System.Drawing.Point(395, 25);
+			btnProcessReload.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			btnProcessReload.Name = "btnProcessReload";
+			btnProcessReload.Size = new System.Drawing.Size(79, 25);
+			btnProcessReload.TabIndex = 1;
+			btnProcessReload.Text = "새로고침";
+			btnProcessReload.UseVisualStyleBackColor = true;
+			btnProcessReload.Click += btnProcessReload_Click;
 			// 
 			// cbProcessList
 			// 
-			this.cbProcessList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cbProcessList.FormattingEnabled = true;
-			this.cbProcessList.Location = new System.Drawing.Point(6, 20);
-			this.cbProcessList.Name = "cbProcessList";
-			this.cbProcessList.Size = new System.Drawing.Size(383, 20);
-			this.cbProcessList.TabIndex = 0;
-			this.cbProcessList.SelectedIndexChanged += new System.EventHandler(this.cbProcessList_SelectedIndexChanged);
+			cbProcessList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			cbProcessList.FormattingEnabled = true;
+			cbProcessList.Location = new System.Drawing.Point(6, 25);
+			cbProcessList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			cbProcessList.Name = "cbProcessList";
+			cbProcessList.Size = new System.Drawing.Size(383, 23);
+			cbProcessList.TabIndex = 0;
+			cbProcessList.SelectedIndexChanged += cbProcessList_SelectedIndexChanged;
 			// 
 			// btnBotStart
 			// 
-			this.btnBotStart.Location = new System.Drawing.Point(6, 20);
-			this.btnBotStart.Name = "btnBotStart";
-			this.btnBotStart.Size = new System.Drawing.Size(468, 51);
-			this.btnBotStart.TabIndex = 2;
-			this.btnBotStart.Text = "매크로 실행";
-			this.btnBotStart.UseVisualStyleBackColor = true;
-			this.btnBotStart.Click += new System.EventHandler(this.btnBotStart_Click);
+			btnBotStart.Location = new System.Drawing.Point(6, 25);
+			btnBotStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			btnBotStart.Name = "btnBotStart";
+			btnBotStart.Size = new System.Drawing.Size(468, 64);
+			btnBotStart.TabIndex = 2;
+			btnBotStart.Text = "매크로 실행";
+			btnBotStart.UseVisualStyleBackColor = true;
+			btnBotStart.Click += btnBotStart_Click;
 			// 
 			// btnBotStop
 			// 
-			this.btnBotStop.Enabled = false;
-			this.btnBotStop.Location = new System.Drawing.Point(6, 77);
-			this.btnBotStop.Name = "btnBotStop";
-			this.btnBotStop.Size = new System.Drawing.Size(468, 51);
-			this.btnBotStop.TabIndex = 3;
-			this.btnBotStop.Text = "매크로 중단";
-			this.btnBotStop.UseVisualStyleBackColor = true;
-			this.btnBotStop.Click += new System.EventHandler(this.btnBotStop_Click);
+			btnBotStop.Enabled = false;
+			btnBotStop.Location = new System.Drawing.Point(6, 96);
+			btnBotStop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			btnBotStop.Name = "btnBotStop";
+			btnBotStop.Size = new System.Drawing.Size(468, 64);
+			btnBotStop.TabIndex = 3;
+			btnBotStop.Text = "매크로 중단";
+			btnBotStop.UseVisualStyleBackColor = true;
+			btnBotStop.Click += btnBotStop_Click;
 			// 
 			// gbMacroSetting
 			// 
-			this.gbMacroSetting.Controls.Add(this.btnSettingReset);
-			this.gbMacroSetting.Controls.Add(this.lbCurrectRate);
-			this.gbMacroSetting.Controls.Add(this.numCurrectRate);
-			this.gbMacroSetting.Controls.Add(this.btnImageDownload);
-			this.gbMacroSetting.Controls.Add(this.btnImageUpload);
-			this.gbMacroSetting.Controls.Add(this.numCollectDelay);
-			this.gbMacroSetting.Controls.Add(this.numThrowDelay);
-			this.gbMacroSetting.Controls.Add(this.lbCollectDelay);
-			this.gbMacroSetting.Controls.Add(this.lbThrowDelay);
-			this.gbMacroSetting.Controls.Add(this.numBotStartDelay);
-			this.gbMacroSetting.Controls.Add(this.lbBotStartDelay);
-			this.gbMacroSetting.Controls.Add(this.lbMacroTimes);
-			this.gbMacroSetting.Controls.Add(this.numMacroTimes);
-			this.gbMacroSetting.Location = new System.Drawing.Point(12, 72);
-			this.gbMacroSetting.Name = "gbMacroSetting";
-			this.gbMacroSetting.Size = new System.Drawing.Size(480, 186);
-			this.gbMacroSetting.TabIndex = 4;
-			this.gbMacroSetting.TabStop = false;
-			this.gbMacroSetting.Text = "매크로 설정";
+			gbMacroSetting.Controls.Add(btnSettingReset);
+			gbMacroSetting.Controls.Add(lbCurrectRate);
+			gbMacroSetting.Controls.Add(numCurrectRate);
+			gbMacroSetting.Controls.Add(btnImageDownload);
+			gbMacroSetting.Controls.Add(btnImageUpload);
+			gbMacroSetting.Controls.Add(numCollectDelay);
+			gbMacroSetting.Controls.Add(numThrowDelay);
+			gbMacroSetting.Controls.Add(lbCollectDelay);
+			gbMacroSetting.Controls.Add(lbThrowDelay);
+			gbMacroSetting.Controls.Add(numBotStartDelay);
+			gbMacroSetting.Controls.Add(lbBotStartDelay);
+			gbMacroSetting.Controls.Add(lbMacroTimes);
+			gbMacroSetting.Controls.Add(numMacroTimes);
+			gbMacroSetting.Location = new System.Drawing.Point(12, 90);
+			gbMacroSetting.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			gbMacroSetting.Name = "gbMacroSetting";
+			gbMacroSetting.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			gbMacroSetting.Size = new System.Drawing.Size(480, 232);
+			gbMacroSetting.TabIndex = 4;
+			gbMacroSetting.TabStop = false;
+			gbMacroSetting.Text = "매크로 설정";
 			// 
 			// btnSettingReset
 			// 
-			this.btnSettingReset.Location = new System.Drawing.Point(401, 130);
-			this.btnSettingReset.Name = "btnSettingReset";
-			this.btnSettingReset.Size = new System.Drawing.Size(73, 50);
-			this.btnSettingReset.TabIndex = 16;
-			this.btnSettingReset.Text = "설정\r\n초기화";
-			this.btnSettingReset.UseVisualStyleBackColor = true;
-			this.btnSettingReset.Click += new System.EventHandler(this.btnSettingReset_Click);
+			btnSettingReset.Location = new System.Drawing.Point(395, 162);
+			btnSettingReset.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			btnSettingReset.Name = "btnSettingReset";
+			btnSettingReset.Size = new System.Drawing.Size(79, 62);
+			btnSettingReset.TabIndex = 16;
+			btnSettingReset.Text = "설정\r\n초기화";
+			btnSettingReset.UseVisualStyleBackColor = true;
+			btnSettingReset.Click += btnSettingReset_Click;
 			// 
 			// lbCurrectRate
 			// 
-			this.lbCurrectRate.AutoSize = true;
-			this.lbCurrectRate.Location = new System.Drawing.Point(6, 154);
-			this.lbCurrectRate.Name = "lbCurrectRate";
-			this.lbCurrectRate.Size = new System.Drawing.Size(158, 12);
-			this.lbCurrectRate.TabIndex = 15;
-			this.lbCurrectRate.Text = "정확도(1~10 높을수록 정확)";
+			lbCurrectRate.AutoSize = true;
+			lbCurrectRate.Location = new System.Drawing.Point(6, 192);
+			lbCurrectRate.Name = "lbCurrectRate";
+			lbCurrectRate.Size = new System.Drawing.Size(160, 15);
+			lbCurrectRate.TabIndex = 15;
+			lbCurrectRate.Text = "정확도(1~10 높을수록 정확)";
 			// 
 			// numCurrectRate
 			// 
-			this.numCurrectRate.Location = new System.Drawing.Point(237, 152);
-			this.numCurrectRate.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.numCurrectRate.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numCurrectRate.Name = "numCurrectRate";
-			this.numCurrectRate.Size = new System.Drawing.Size(146, 21);
-			this.numCurrectRate.TabIndex = 14;
-			this.numCurrectRate.Value = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-			this.numCurrectRate.ValueChanged += new System.EventHandler(this.numCurrectRate_ValueChanged);
+			numCurrectRate.Location = new System.Drawing.Point(237, 190);
+			numCurrectRate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			numCurrectRate.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
+			numCurrectRate.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			numCurrectRate.Name = "numCurrectRate";
+			numCurrectRate.Size = new System.Drawing.Size(146, 23);
+			numCurrectRate.TabIndex = 14;
+			numCurrectRate.Value = new decimal(new int[] { 9, 0, 0, 0 });
+			numCurrectRate.ValueChanged += numCurrectRate_ValueChanged;
 			// 
 			// btnImageDownload
 			// 
-			this.btnImageDownload.Location = new System.Drawing.Point(401, 18);
-			this.btnImageDownload.Name = "btnImageDownload";
-			this.btnImageDownload.Size = new System.Drawing.Size(73, 50);
-			this.btnImageDownload.TabIndex = 13;
-			this.btnImageDownload.Text = "창이미지\r\n캡처";
-			this.btnImageDownload.UseVisualStyleBackColor = true;
-			this.btnImageDownload.Click += new System.EventHandler(this.btnImageDownload_Click);
+			btnImageDownload.Location = new System.Drawing.Point(395, 22);
+			btnImageDownload.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			btnImageDownload.Name = "btnImageDownload";
+			btnImageDownload.Size = new System.Drawing.Size(79, 62);
+			btnImageDownload.TabIndex = 13;
+			btnImageDownload.Text = "창이미지\r\n캡처";
+			btnImageDownload.UseVisualStyleBackColor = true;
+			btnImageDownload.Click += btnImageDownload_Click;
 			// 
 			// btnImageUpload
 			// 
-			this.btnImageUpload.Location = new System.Drawing.Point(401, 74);
-			this.btnImageUpload.Name = "btnImageUpload";
-			this.btnImageUpload.Size = new System.Drawing.Size(73, 50);
-			this.btnImageUpload.TabIndex = 12;
-			this.btnImageUpload.Text = "이미지패턴\r\n업로드";
-			this.btnImageUpload.UseVisualStyleBackColor = true;
-			this.btnImageUpload.Click += new System.EventHandler(this.btnImageUpload_Click);
+			btnImageUpload.Location = new System.Drawing.Point(395, 92);
+			btnImageUpload.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			btnImageUpload.Name = "btnImageUpload";
+			btnImageUpload.Size = new System.Drawing.Size(79, 62);
+			btnImageUpload.TabIndex = 12;
+			btnImageUpload.Text = "이미지패턴\r\n업로드";
+			btnImageUpload.UseVisualStyleBackColor = true;
+			btnImageUpload.Click += btnImageUpload_Click;
 			// 
 			// numCollectDelay
 			// 
-			this.numCollectDelay.Location = new System.Drawing.Point(237, 119);
-			this.numCollectDelay.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-			this.numCollectDelay.Name = "numCollectDelay";
-			this.numCollectDelay.Size = new System.Drawing.Size(146, 21);
-			this.numCollectDelay.TabIndex = 11;
-			this.numCollectDelay.ValueChanged += new System.EventHandler(this.numCollectDelay_ValueChanged);
+			numCollectDelay.Location = new System.Drawing.Point(237, 149);
+			numCollectDelay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			numCollectDelay.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
+			numCollectDelay.Name = "numCollectDelay";
+			numCollectDelay.Size = new System.Drawing.Size(146, 23);
+			numCollectDelay.TabIndex = 11;
+			numCollectDelay.ValueChanged += numCollectDelay_ValueChanged;
 			// 
 			// numThrowDelay
 			// 
-			this.numThrowDelay.Location = new System.Drawing.Point(237, 84);
-			this.numThrowDelay.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-			this.numThrowDelay.Name = "numThrowDelay";
-			this.numThrowDelay.Size = new System.Drawing.Size(146, 21);
-			this.numThrowDelay.TabIndex = 10;
-			this.numThrowDelay.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-			this.numThrowDelay.ValueChanged += new System.EventHandler(this.numThrowDelay_ValueChanged);
+			numThrowDelay.Location = new System.Drawing.Point(237, 105);
+			numThrowDelay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			numThrowDelay.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
+			numThrowDelay.Name = "numThrowDelay";
+			numThrowDelay.Size = new System.Drawing.Size(146, 23);
+			numThrowDelay.TabIndex = 10;
+			numThrowDelay.Value = new decimal(new int[] { 1000, 0, 0, 0 });
+			numThrowDelay.ValueChanged += numThrowDelay_ValueChanged;
 			// 
 			// lbCollectDelay
 			// 
-			this.lbCollectDelay.AutoSize = true;
-			this.lbCollectDelay.Location = new System.Drawing.Point(6, 121);
-			this.lbCollectDelay.Name = "lbCollectDelay";
-			this.lbCollectDelay.Size = new System.Drawing.Size(175, 12);
-			this.lbCollectDelay.TabIndex = 9;
-			this.lbCollectDelay.Text = "낚시줄 회수 딜레이(1000 = 1초)";
+			lbCollectDelay.AutoSize = true;
+			lbCollectDelay.Location = new System.Drawing.Point(6, 151);
+			lbCollectDelay.Name = "lbCollectDelay";
+			lbCollectDelay.Size = new System.Drawing.Size(182, 15);
+			lbCollectDelay.TabIndex = 9;
+			lbCollectDelay.Text = "낚시줄 회수 딜레이(1000 = 1초)";
 			// 
 			// lbThrowDelay
 			// 
-			this.lbThrowDelay.AutoSize = true;
-			this.lbThrowDelay.Location = new System.Drawing.Point(6, 86);
-			this.lbThrowDelay.Name = "lbThrowDelay";
-			this.lbThrowDelay.Size = new System.Drawing.Size(187, 12);
-			this.lbThrowDelay.TabIndex = 8;
-			this.lbThrowDelay.Text = "낚시줄 던지기 딜레이(1000 = 1초)";
+			lbThrowDelay.AutoSize = true;
+			lbThrowDelay.Location = new System.Drawing.Point(6, 108);
+			lbThrowDelay.Name = "lbThrowDelay";
+			lbThrowDelay.Size = new System.Drawing.Size(194, 15);
+			lbThrowDelay.TabIndex = 8;
+			lbThrowDelay.Text = "낚시줄 던지기 딜레이(1000 = 1초)";
 			// 
 			// numBotStartDelay
 			// 
-			this.numBotStartDelay.Location = new System.Drawing.Point(237, 50);
-			this.numBotStartDelay.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-			this.numBotStartDelay.Name = "numBotStartDelay";
-			this.numBotStartDelay.Size = new System.Drawing.Size(146, 21);
-			this.numBotStartDelay.TabIndex = 7;
-			this.numBotStartDelay.Value = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
-			this.numBotStartDelay.ValueChanged += new System.EventHandler(this.numBotStartDelay_ValueChanged);
+			numBotStartDelay.Location = new System.Drawing.Point(237, 62);
+			numBotStartDelay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			numBotStartDelay.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
+			numBotStartDelay.Name = "numBotStartDelay";
+			numBotStartDelay.Size = new System.Drawing.Size(146, 23);
+			numBotStartDelay.TabIndex = 7;
+			numBotStartDelay.Value = new decimal(new int[] { 2000, 0, 0, 0 });
+			numBotStartDelay.ValueChanged += numBotStartDelay_ValueChanged;
 			// 
 			// lbBotStartDelay
 			// 
-			this.lbBotStartDelay.AutoSize = true;
-			this.lbBotStartDelay.Location = new System.Drawing.Point(6, 52);
-			this.lbBotStartDelay.Name = "lbBotStartDelay";
-			this.lbBotStartDelay.Size = new System.Drawing.Size(175, 12);
-			this.lbBotStartDelay.TabIndex = 6;
-			this.lbBotStartDelay.Text = "매크로 시작 딜레이(1000 = 1초)";
+			lbBotStartDelay.AutoSize = true;
+			lbBotStartDelay.Location = new System.Drawing.Point(6, 65);
+			lbBotStartDelay.Name = "lbBotStartDelay";
+			lbBotStartDelay.Size = new System.Drawing.Size(182, 15);
+			lbBotStartDelay.TabIndex = 6;
+			lbBotStartDelay.Text = "매크로 시작 딜레이(1000 = 1초)";
 			// 
 			// lbMacroTimes
 			// 
-			this.lbMacroTimes.AutoSize = true;
-			this.lbMacroTimes.Location = new System.Drawing.Point(6, 22);
-			this.lbMacroTimes.Name = "lbMacroTimes";
-			this.lbMacroTimes.Size = new System.Drawing.Size(167, 12);
-			this.lbMacroTimes.TabIndex = 5;
-			this.lbMacroTimes.Text = "매크로 실행할 횟수 (0 = 무한)";
+			lbMacroTimes.AutoSize = true;
+			lbMacroTimes.Location = new System.Drawing.Point(6, 28);
+			lbMacroTimes.Name = "lbMacroTimes";
+			lbMacroTimes.Size = new System.Drawing.Size(166, 15);
+			lbMacroTimes.TabIndex = 5;
+			lbMacroTimes.Text = "매크로 실행할 횟수(0 = 무한)";
 			// 
 			// numMacroTimes
 			// 
-			this.numMacroTimes.Location = new System.Drawing.Point(237, 20);
-			this.numMacroTimes.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-			this.numMacroTimes.Name = "numMacroTimes";
-			this.numMacroTimes.Size = new System.Drawing.Size(146, 21);
-			this.numMacroTimes.TabIndex = 4;
-			this.numMacroTimes.ValueChanged += new System.EventHandler(this.numMacroTimes_ValueChanged);
+			numMacroTimes.Location = new System.Drawing.Point(237, 25);
+			numMacroTimes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			numMacroTimes.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
+			numMacroTimes.Name = "numMacroTimes";
+			numMacroTimes.Size = new System.Drawing.Size(146, 23);
+			numMacroTimes.TabIndex = 4;
+			numMacroTimes.ValueChanged += numMacroTimes_ValueChanged;
 			// 
 			// ssProcessStatus
 			// 
-			this.ssProcessStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ssProcessStatuslb1,
-            this.ssMacroStatus});
-			this.ssProcessStatus.Location = new System.Drawing.Point(0, 532);
-			this.ssProcessStatus.Name = "ssProcessStatus";
-			this.ssProcessStatus.Size = new System.Drawing.Size(500, 22);
-			this.ssProcessStatus.TabIndex = 5;
-			this.ssProcessStatus.Text = "statusStrip1";
+			ssProcessStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { ssProcessStatuslb1, ssMacroStatus });
+			ssProcessStatus.Location = new System.Drawing.Point(0, 670);
+			ssProcessStatus.Name = "ssProcessStatus";
+			ssProcessStatus.Size = new System.Drawing.Size(500, 22);
+			ssProcessStatus.TabIndex = 5;
+			ssProcessStatus.Text = "statusStrip1";
 			// 
 			// ssProcessStatuslb1
 			// 
-			this.ssProcessStatuslb1.Name = "ssProcessStatuslb1";
-			this.ssProcessStatuslb1.Size = new System.Drawing.Size(78, 17);
-			this.ssProcessStatuslb1.Text = "매크로 상태 :";
+			ssProcessStatuslb1.Name = "ssProcessStatuslb1";
+			ssProcessStatuslb1.Size = new System.Drawing.Size(78, 17);
+			ssProcessStatuslb1.Text = "매크로 상태 :";
 			// 
 			// ssMacroStatus
 			// 
-			this.ssMacroStatus.ForeColor = System.Drawing.Color.Red;
-			this.ssMacroStatus.Name = "ssMacroStatus";
-			this.ssMacroStatus.Size = new System.Drawing.Size(43, 17);
-			this.ssMacroStatus.Text = "정지중";
+			ssMacroStatus.ForeColor = System.Drawing.Color.Red;
+			ssMacroStatus.Name = "ssMacroStatus";
+			ssMacroStatus.Size = new System.Drawing.Size(43, 17);
+			ssMacroStatus.Text = "정지중";
 			// 
 			// gbMacro
 			// 
-			this.gbMacro.Controls.Add(this.btnFishingTimesReset);
-			this.gbMacro.Controls.Add(this.lbFishingTimes);
-			this.gbMacro.Controls.Add(this.lbFishing);
-			this.gbMacro.Controls.Add(this.btnBotStop);
-			this.gbMacro.Controls.Add(this.btnBotStart);
-			this.gbMacro.Location = new System.Drawing.Point(12, 358);
-			this.gbMacro.Name = "gbMacro";
-			this.gbMacro.Size = new System.Drawing.Size(480, 171);
-			this.gbMacro.TabIndex = 4;
-			this.gbMacro.TabStop = false;
-			this.gbMacro.Text = "매크로 관리";
+			gbMacro.Controls.Add(btnFishingTimesReset);
+			gbMacro.Controls.Add(lbFishingTimes);
+			gbMacro.Controls.Add(lbFishing);
+			gbMacro.Controls.Add(btnBotStop);
+			gbMacro.Controls.Add(btnBotStart);
+			gbMacro.Location = new System.Drawing.Point(12, 448);
+			gbMacro.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			gbMacro.Name = "gbMacro";
+			gbMacro.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			gbMacro.Size = new System.Drawing.Size(480, 214);
+			gbMacro.TabIndex = 4;
+			gbMacro.TabStop = false;
+			gbMacro.Text = "매크로 관리";
 			// 
 			// btnFishingTimesReset
 			// 
-			this.btnFishingTimesReset.Location = new System.Drawing.Point(399, 136);
-			this.btnFishingTimesReset.Name = "btnFishingTimesReset";
-			this.btnFishingTimesReset.Size = new System.Drawing.Size(75, 23);
-			this.btnFishingTimesReset.TabIndex = 6;
-			this.btnFishingTimesReset.Text = "횟수 리셋";
-			this.btnFishingTimesReset.UseVisualStyleBackColor = true;
-			this.btnFishingTimesReset.Click += new System.EventHandler(this.btnFishingTimesReset_Click);
+			btnFishingTimesReset.Location = new System.Drawing.Point(399, 170);
+			btnFishingTimesReset.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			btnFishingTimesReset.Name = "btnFishingTimesReset";
+			btnFishingTimesReset.Size = new System.Drawing.Size(75, 29);
+			btnFishingTimesReset.TabIndex = 6;
+			btnFishingTimesReset.Text = "횟수 리셋";
+			btnFishingTimesReset.UseVisualStyleBackColor = true;
+			btnFishingTimesReset.Click += btnFishingTimesReset_Click;
 			// 
 			// lbFishingTimes
 			// 
-			this.lbFishingTimes.AutoSize = true;
-			this.lbFishingTimes.Location = new System.Drawing.Point(89, 141);
-			this.lbFishingTimes.Name = "lbFishingTimes";
-			this.lbFishingTimes.Size = new System.Drawing.Size(11, 12);
-			this.lbFishingTimes.TabIndex = 5;
-			this.lbFishingTimes.Text = "0";
+			lbFishingTimes.AutoSize = true;
+			lbFishingTimes.Location = new System.Drawing.Point(89, 176);
+			lbFishingTimes.Name = "lbFishingTimes";
+			lbFishingTimes.Size = new System.Drawing.Size(14, 15);
+			lbFishingTimes.TabIndex = 5;
+			lbFishingTimes.Text = "0";
 			// 
 			// lbFishing
 			// 
-			this.lbFishing.AutoSize = true;
-			this.lbFishing.Location = new System.Drawing.Point(6, 141);
-			this.lbFishing.Name = "lbFishing";
-			this.lbFishing.Size = new System.Drawing.Size(77, 12);
-			this.lbFishing.TabIndex = 4;
-			this.lbFishing.Text = "낚시한 횟수 :";
+			lbFishing.AutoSize = true;
+			lbFishing.Location = new System.Drawing.Point(6, 176);
+			lbFishing.Name = "lbFishing";
+			lbFishing.Size = new System.Drawing.Size(78, 15);
+			lbFishing.TabIndex = 4;
+			lbFishing.Text = "낚시한 횟수 :";
 			// 
 			// gbLog
 			// 
-			this.gbLog.Controls.Add(this.lbLog);
-			this.gbLog.Location = new System.Drawing.Point(12, 264);
-			this.gbLog.Name = "gbLog";
-			this.gbLog.Size = new System.Drawing.Size(480, 88);
-			this.gbLog.TabIndex = 6;
-			this.gbLog.TabStop = false;
-			this.gbLog.Text = "로그";
+			gbLog.Controls.Add(lbLog);
+			gbLog.Location = new System.Drawing.Point(12, 330);
+			gbLog.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			gbLog.Name = "gbLog";
+			gbLog.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			gbLog.Size = new System.Drawing.Size(480, 110);
+			gbLog.TabIndex = 6;
+			gbLog.TabStop = false;
+			gbLog.Text = "로그";
 			// 
 			// lbLog
 			// 
-			this.lbLog.FormattingEnabled = true;
-			this.lbLog.ItemHeight = 12;
-			this.lbLog.Location = new System.Drawing.Point(6, 18);
-			this.lbLog.Name = "lbLog";
-			this.lbLog.Size = new System.Drawing.Size(468, 64);
-			this.lbLog.TabIndex = 0;
+			lbLog.FormattingEnabled = true;
+			lbLog.ItemHeight = 15;
+			lbLog.Location = new System.Drawing.Point(6, 22);
+			lbLog.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			lbLog.Name = "lbLog";
+			lbLog.Size = new System.Drawing.Size(468, 79);
+			lbLog.TabIndex = 0;
 			// 
 			// cbDefaultImg
 			// 
-			this.cbDefaultImg.AutoSize = true;
-			this.cbDefaultImg.Location = new System.Drawing.Point(357, 537);
-			this.cbDefaultImg.Name = "cbDefaultImg";
-			this.cbDefaultImg.Size = new System.Drawing.Size(144, 16);
-			this.cbDefaultImg.TabIndex = 7;
-			this.cbDefaultImg.Text = "기본 패턴 이미지 사용";
-			this.cbDefaultImg.UseVisualStyleBackColor = true;
-			this.cbDefaultImg.CheckedChanged += new System.EventHandler(this.cbDefaultImg_CheckedChanged);
+			cbDefaultImg.AutoSize = true;
+			cbDefaultImg.Location = new System.Drawing.Point(357, 671);
+			cbDefaultImg.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			cbDefaultImg.Name = "cbDefaultImg";
+			cbDefaultImg.Size = new System.Drawing.Size(146, 19);
+			cbDefaultImg.TabIndex = 7;
+			cbDefaultImg.Text = "기본 패턴 이미지 사용";
+			cbDefaultImg.UseVisualStyleBackColor = true;
+			cbDefaultImg.CheckedChanged += cbDefaultImg_CheckedChanged;
 			// 
 			// MCMacro
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(500, 554);
-			this.Controls.Add(this.cbDefaultImg);
-			this.Controls.Add(this.gbLog);
-			this.Controls.Add(this.gbMacro);
-			this.Controls.Add(this.ssProcessStatus);
-			this.Controls.Add(this.gbMacroSetting);
-			this.Controls.Add(this.gbProcess);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MaximizeBox = false;
-			this.Name = "MCMacro";
-			this.Text = "MCFishingBot";
-			this.Load += new System.EventHandler(this.MCMacro_Load);
-			this.gbProcess.ResumeLayout(false);
-			this.gbMacroSetting.ResumeLayout(false);
-			this.gbMacroSetting.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numCurrectRate)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numCollectDelay)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numThrowDelay)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numBotStartDelay)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numMacroTimes)).EndInit();
-			this.ssProcessStatus.ResumeLayout(false);
-			this.ssProcessStatus.PerformLayout();
-			this.gbMacro.ResumeLayout(false);
-			this.gbMacro.PerformLayout();
-			this.gbLog.ResumeLayout(false);
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			ClientSize = new System.Drawing.Size(500, 692);
+			Controls.Add(cbDefaultImg);
+			Controls.Add(gbLog);
+			Controls.Add(gbMacro);
+			Controls.Add(ssProcessStatus);
+			Controls.Add(gbMacroSetting);
+			Controls.Add(gbProcess);
+			FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+			Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			MaximizeBox = false;
+			Name = "MCMacro";
+			Text = "MCFishingBot";
+			Load += MCMacro_Load;
+			gbProcess.ResumeLayout(false);
+			gbMacroSetting.ResumeLayout(false);
+			gbMacroSetting.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)numCurrectRate).EndInit();
+			((System.ComponentModel.ISupportInitialize)numCollectDelay).EndInit();
+			((System.ComponentModel.ISupportInitialize)numThrowDelay).EndInit();
+			((System.ComponentModel.ISupportInitialize)numBotStartDelay).EndInit();
+			((System.ComponentModel.ISupportInitialize)numMacroTimes).EndInit();
+			ssProcessStatus.ResumeLayout(false);
+			ssProcessStatus.PerformLayout();
+			gbMacro.ResumeLayout(false);
+			gbMacro.PerformLayout();
+			gbLog.ResumeLayout(false);
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion

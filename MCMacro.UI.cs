@@ -39,22 +39,19 @@ namespace MCFishingBot
 		/// <param name="log"></param>
 		private async Task ShowLog(string log)
 		{
-			await Task.Run(() =>
+			Invoke(new Action(() =>
 			{
-				Invoke(new Action(() =>
+				// 로그 수 제한
+				if (lbLog.Items.Count > 10000)
 				{
-					// 로그 수 제한
-					if (lbLog.Items.Count > 10000)
-					{
-						lbLog.Items.RemoveAt(0);
-					}
+					lbLog.Items.RemoveAt(0);
+				}
 
-					lbLog.Items.Add($"{DateTime.Now.ToString("HH:mm:ss")} : {log}");
+				lbLog.Items.Add($"{DateTime.Now.ToString("HH:mm:ss")} : {log}");
 
-					// 항상 최신 로그가 선택되게끔 함
-					lbLog.SelectedIndex = lbLog.Items.Count != -1 ? lbLog.Items.Count - 1 : -1;
-				}));
-			});
+				// 항상 최신 로그가 선택되게끔 함
+				lbLog.SelectedIndex = lbLog.Items.Count != -1 ? lbLog.Items.Count - 1 : -1;
+			}));
 		}
 
 		/// <summary>
